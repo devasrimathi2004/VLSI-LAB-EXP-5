@@ -28,14 +28,98 @@ Logic Diagram :
 
 
 VERILOG CODE:
+~~~
+module fsm_moore( clk, rst, inp, outp);
 
-----Type Verilog Code
+input clk, rst, inp;
+
+output outp;
+
+reg [1:0] state;
+
+reg outp;
+
+always @(posedge clk, posedge rst)
+
+begin
+
+if(rst)
+
+state<=2'b00;
+
+else
+
+begin
+
+case(state)
+
+2'b00:
+
+begin
+
+if(inp) state <=2'b01;
+
+
+
+else state <=2'b10;
+end
+
+2'b01:
+
+begin
+
+if (inp) state <=2'b11;
+else state<=2'b10;
+end
+
+2'b10:
+begin
+if (inp) state<=2'b01;
+else state <=2'b11;
+end
+
+2'b11:
+
+begin
+
+if (inp) state <=2'b01;
+else state <=2'b10;
+
+end
+
+endcase
+
+end
+
+end
+
+always @(posedge clk, posedge rst)
+
+begin
+
+if(rst)
+
+outp <= 0;
+
+else if(state == 2'b11)
+
+outp <= 1;
+
+else outp<= 0;
+
+end
+
+endmodule
+~~~
+
 
 OUTPUT:
 
------Place a Waveform Generated from Xilinx ISE------------
+![image](https://github.com/devasrimathi2004/VLSI-LAB-EXP-5/assets/166363441/700c8396-1401-44f2-b077-00f2da79c6b1)
+![image](https://github.com/devasrimathi2004/VLSI-LAB-EXP-5/assets/166363441/9ad27e8c-b9c6-4560-b4ea-9e42735feb11)
 
-RESULT:
+
+RESULT:Simulation And Synthesis Finite State Machine is Successfully Verified using Vivado Software.
 
 
 
